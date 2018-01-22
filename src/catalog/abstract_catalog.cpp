@@ -33,6 +33,7 @@
 #include "executor/insert_executor.h"
 #include "executor/plan_executor.h"
 #include "executor/seq_scan_executor.h"
+#include "executor/update_executor.h"
 
 #include "storage/database.h"
 #include "storage/storage_manager.h"
@@ -111,11 +112,11 @@ bool AbstractCatalog::InsertTuple(std::unique_ptr<storage::Tuple> tuple,
       std::make_shared<planner::InsertPlan>(catalog_table_, &columns, &values);
 
   executor::ExecutionResult this_p_status;
-  auto on_complete =
-      [&this_p_status](executor::ExecutionResult p_status,
-                       std::vector<ResultValue> &&values UNUSED_ATTRIBUTE) {
-        this_p_status = p_status;
-      };
+  auto on_complete = [&this_p_status](
+                         executor::ExecutionResult p_status,
+                         std::vector<ResultValue> &&values UNUSED_ATTRIBUTE) {
+    this_p_status = p_status;
+  };
 
   executor::PlanExecutor::ExecutePlan(node, txn, params, result_format,
                                       on_complete);
@@ -302,7 +303,7 @@ void AbstractCatalog::AddIndex(const std::vector<oid_t> &key_attrs,
 bool AbstractCatalog::UpdateWithIndexScan(
     std::vector<oid_t> update_columns, std::vector<type::Value> update_values,
     std::vector<type::Value> scan_values, oid_t index_offset,
-    concurrency::Transaction *txn) {
+    concurrency::TransactionContext *txn) {
   if (txn == nullptr) throw CatalogException("Scan table requires transaction");
 
   std::unique_ptr<executor::ExecutorContext> context(
@@ -340,7 +341,7 @@ bool AbstractCatalog::UpdateWithIndexScan(
   PL_ASSERT(update_columns.size() == update_values.size());
   for (size_t i = 0; i < update_values.size(); i++) {
     planner::DerivedAttribute update_attribute{
-        expression::ExpressionUtil::ConstantValueFactory(update_values[i])};
+        new expression::ConstantValueExpression(update_values[i])};
     // emplace(update_column_id, update_val)
     target_list.emplace_back(update_columns[i], update_attribute);
   }
