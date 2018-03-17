@@ -96,7 +96,7 @@ void SetupTables(std::string database_name) {
 }
 
 TEST_F(BinderCorrectnessTest, SelectStatementTest) {
-  std::string default_database_name = "TEST_DB";
+  std::string default_database_name = "test_db";
   SetupTables(default_database_name);
   auto &parser = parser::PostgresParser::GetInstance();
   catalog::Catalog *catalog_ptr = catalog::Catalog::GetInstance();
@@ -240,7 +240,7 @@ TEST_F(BinderCorrectnessTest, SelectStatementTest) {
 // test after UpdateStatement is changed
 
 TEST_F(BinderCorrectnessTest, DeleteStatementTest) {
-  std::string default_database_name = "TEST_DB";
+  std::string default_database_name = "test_db";
   SetupTables(default_database_name);
   auto &parser = parser::PostgresParser::GetInstance();
   catalog::Catalog *catalog_ptr = catalog::Catalog::GetInstance();
@@ -280,7 +280,7 @@ TEST_F(BinderCorrectnessTest, DeleteStatementTest) {
 }
 
 TEST_F(BinderCorrectnessTest, BindDepthTest) {
-  std::string default_database_name = "TEST_DB";
+  std::string default_database_name = "test_db";
   SetupTables(default_database_name);
   auto &parser = parser::PostgresParser::GetInstance();
 
@@ -319,7 +319,8 @@ TEST_F(BinderCorrectnessTest, BindDepthTest) {
   auto exists_sub_expr_select =
       dynamic_cast<const expression::SubqueryExpression *>(exists_sub_expr)
           ->GetSubSelect();
-  auto exists_sub_expr_select_where = exists_sub_expr_select->where_clause.get();
+  auto exists_sub_expr_select_where =
+      exists_sub_expr_select->where_clause.get();
   auto exists_sub_expr_select_ele =
       exists_sub_expr_select->select_list[0].get();
   auto in_tv_expr = in_expr->GetChild(0);
@@ -337,8 +338,7 @@ TEST_F(BinderCorrectnessTest, BindDepthTest) {
       in_sub_expr_select_where_right->GetChild(1);
   auto in_sub_expr_select_where_right_sub_select =
       dynamic_cast<const expression::SubqueryExpression *>(
-          in_sub_expr_select_where_right_sub)
-          ->GetSubSelect();
+          in_sub_expr_select_where_right_sub)->GetSubSelect();
   auto in_sub_expr_select_where_right_sub_select_where =
       in_sub_expr_select_where_right_sub_select->where_clause.get();
   auto in_sub_expr_select_where_right_sub_select_ele =
