@@ -600,13 +600,8 @@ void IndexTuner::BootstrapTPCC(const std::string &path) {
     auto table = catalog->GetTableWithName(
         database_name, std::string(DEFUALT_SCHEMA_NAME), table_name, txn);
     txn_manager.CommitTransaction(txn);
-<<<<<<< HEAD
     PELOTON_ASSERT(table != nullptr);
     for (auto& sample : samples) {
-=======
-    PL_ASSERT(table != nullptr);
-    for (auto &sample : samples) {
->>>>>>> 0abbecd... add full functionality of create/drop schema(namespace)
       table->RecordIndexSample(sample);
     }
     LOG_INFO("Added table to index tuner : %s", table_name.c_str());

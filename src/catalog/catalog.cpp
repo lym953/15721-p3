@@ -793,15 +793,9 @@ storage::Database *Catalog::GetDatabaseWithName(
  * throw exception and abort txn if not exists/invisible
  * */
 storage::DataTable *Catalog::GetTableWithName(
-<<<<<<< HEAD
-    const std::string &database_name, const std::string &table_name,
-    concurrency::TransactionContext *txn) {
-  PELOTON_ASSERT(txn != nullptr);
-=======
     const std::string &database_name, const std::string &schema_name,
     const std::string &table_name, concurrency::TransactionContext *txn) {
-  PL_ASSERT(txn != nullptr);
->>>>>>> 0abbecd... add full functionality of create/drop schema(namespace)
+  PELOTON_ASSERT(txn != nullptr);
 
   LOG_TRACE("Looking for table %s in database %s", table_name.c_str(),
             database_name.c_str());

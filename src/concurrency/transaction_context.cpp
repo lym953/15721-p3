@@ -188,13 +188,8 @@ bool TransactionContext::RecordDelete(const ItemPointer &location) {
       --insert_count_;
       return true;
     }
-<<<<<<< HEAD
     if(rw_type == RWType::DELETE) {
       PELOTON_ASSERT(false);
-=======
-    if (rw_type == RWType::DELETE) {
-      PL_ASSERT(false);
->>>>>>> 0abbecd... add full functionality of create/drop schema(namespace)
       return false;
     }
     PELOTON_ASSERT(false);

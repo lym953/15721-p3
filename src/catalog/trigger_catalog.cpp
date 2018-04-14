@@ -122,13 +122,8 @@ oid_t TriggerCatalog::GetTriggerOid(std::string trigger_name, oid_t table_oid,
   if (result_tiles->size() == 0) {
     // LOG_INFO("trigger %s doesn't exist", trigger_name.c_str());
   } else {
-<<<<<<< HEAD
-    LOG_INFO("size of the result tiles = %lu", result_tiles->size());
-    PELOTON_ASSERT((*result_tiles)[0]->GetTupleCount() <= 1);
-=======
     // LOG_INFO("size of the result tiles = %lu", result_tiles->size());
-    PL_ASSERT((*result_tiles)[0]->GetTupleCount() <= 1);
->>>>>>> 0abbecd... add full functionality of create/drop schema(namespace)
+    PELOTON_ASSERT((*result_tiles)[0]->GetTupleCount() <= 1);
     if ((*result_tiles)[0]->GetTupleCount() != 0) {
       trigger_oid = (*result_tiles)[0]->GetValue(0, 0).GetAs<oid_t>();
     }

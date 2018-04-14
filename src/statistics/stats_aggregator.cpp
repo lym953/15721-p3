@@ -346,19 +346,5 @@ void StatsAggregator::UnregisterContext(std::thread::id id) {
   }
 }
 
-<<<<<<< HEAD
-storage::DataTable *StatsAggregator::GetMetricTable(std::string table_name) {
-  auto storage_manager = storage::StorageManager::GetInstance();
-  PELOTON_ASSERT(storage_manager->GetDatabaseCount() > 0);
-  storage::Database *catalog_database =
-      storage_manager->GetDatabaseWithOid(CATALOG_DATABASE_OID);
-  PELOTON_ASSERT(catalog_database != nullptr);
-  auto metrics_table = catalog_database->GetTableWithName(table_name);
-  PELOTON_ASSERT(metrics_table != nullptr);
-  return metrics_table;
-}
-
-=======
->>>>>>> 0abbecd... add full functionality of create/drop schema(namespace)
 }  // namespace stats
 }  // namespace peloton

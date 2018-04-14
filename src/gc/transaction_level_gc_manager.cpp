@@ -136,13 +136,8 @@ int TransactionLevelGCManager::Unlink(const int &thread_id,
       if (query_strings.size() != 0) {
         uint64_t timestamp = txn_ctx->GetTimestamp();
         auto &pool = threadpool::MonoQueuePool::GetBrainInstance();
-<<<<<<< HEAD
         for(auto query_string: query_strings) {
           pool.SubmitTask([query_string, timestamp] {
-=======
-        for (auto query_string : query_strings) {
-          pool.SubmitTask([this, query_string, timestamp] {
->>>>>>> 0abbecd... add full functionality of create/drop schema(namespace)
             brain::QueryLogger::LogQuery(query_string, timestamp);
           });
         }
