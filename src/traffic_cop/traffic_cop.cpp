@@ -362,8 +362,8 @@ void TrafficCop::ProcessInvalidStatement() {
 }
 
 bool TrafficCop::BindParamsForCachePlan(
-    const std::vector<std::unique_ptr<expression::AbstractExpression>> &
-        parameters,
+    const std::vector<std::unique_ptr<expression::AbstractExpression>>
+        &parameters,
     const size_t thread_id UNUSED_ATTRIBUTE) {
   if (tcop_txn_state_.empty()) {
     single_statement_txn_ = true;
@@ -416,8 +416,8 @@ void TrafficCop::GetTableColumns(parser::TableRef *from_table,
       auto columns =
           static_cast<storage::DataTable *>(
               catalog::Catalog::GetInstance()->GetTableWithName(
-                  from_table->GetDatabaseName(), from_table->GetTableName(),
-                  GetCurrentTxnState().first))
+                  from_table->GetDatabaseName(), from_table->GetSchemaName(),
+                  from_table->GetTableName(), GetCurrentTxnState().first))
               ->GetSchema()
               ->GetColumns();
       target_columns.insert(target_columns.end(), columns.begin(),

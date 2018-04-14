@@ -56,7 +56,6 @@ class ItemPointerComparator;
 
 #define INVALID_RATIO -1
 
-#define DEFAULT_DB_ID 16777216
 #define DEFAULT_DB_NAME "default_database"
 
 extern int DEFAULT_TUPLES_PER_TILEGROUP;
@@ -611,7 +610,8 @@ enum class CreateType {
   TABLE = 2,                  // table create type
   INDEX = 3,                  // index create type
   CONSTRAINT = 4,             // constraint create type
-  TRIGGER = 5                 // trigger create type
+  TRIGGER = 5,                // trigger create type
+  SCHEMA = 6,                 // schema create type
 };
 std::string CreateTypeToString(CreateType type);
 CreateType StringToCreateType(const std::string &str);
@@ -627,7 +627,8 @@ enum class DropType {
   TABLE = 2,                  // table drop type
   INDEX = 3,                  // index drop type
   CONSTRAINT = 4,             // constraint drop type
-  TRIGGER = 5                 // trigger drop type
+  TRIGGER = 5,                // trigger drop type
+  SCHEMA = 6,                 // trigger drop type
 };
 std::string DropTypeToString(DropType type);
 DropType StringToDropType(const std::string &str);
